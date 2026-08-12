@@ -1,7 +1,14 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useInView } from 'react-intersection-observer'
-import { useRef } from 'react'
+import {
+  SiReact, SiVuedotjs, SiVite, SiNodedotjs, SiGo, SiFastapi,
+  SiPython, SiBun, SiHono, SiFlutter, SiMongodb, SiPostgresql,
+  SiDocker, SiTypescript, SiLangchain,
+  SiQdrant, SiGit, SiMysql, SiSelenium, SiHuggingface,
+} from 'react-icons/si'
+import { FaAws } from 'react-icons/fa6'
+import { TbBrandOpenai } from 'react-icons/tb'
 import './Skills.css'
 
 const skillGroups = [
@@ -52,10 +59,28 @@ const skillGroups = [
 ]
 
 const techLogos = [
-  'React', 'Vue 3', 'Vite', 'Node.js', 'Go', 'FastAPI',
-  'Python', 'Bun', 'Hono', 'Flutter', 'MongoDB', 'PostgreSQL',
-  'Docker', 'AWS', 'TypeScript', 'RAG', 'LangChain', 'OpenAI',
-  'Vector DBs', 'Git', 'MySQL', 'Web Scraping',
+  { name: 'React', Icon: SiReact, color: '#61DAFB' },
+  { name: 'Vue 3', Icon: SiVuedotjs, color: '#4FC08D' },
+  { name: 'Vite', Icon: SiVite, color: '#646CFF' },
+  { name: 'Node.js', Icon: SiNodedotjs, color: '#339933' },
+  { name: 'Go', Icon: SiGo, color: '#00ADD8' },
+  { name: 'FastAPI', Icon: SiFastapi, color: '#009688' },
+  { name: 'Python', Icon: SiPython, color: '#3776AB' },
+  { name: 'Bun', Icon: SiBun, color: '#FBF0DF' },
+  { name: 'Hono', Icon: SiHono, color: '#E36002' },
+  { name: 'Flutter', Icon: SiFlutter, color: '#02569B' },
+  { name: 'MongoDB', Icon: SiMongodb, color: '#47A248' },
+  { name: 'PostgreSQL', Icon: SiPostgresql, color: '#4169E1' },
+  { name: 'Docker', Icon: SiDocker, color: '#2496ED' },
+  { name: 'AWS', Icon: FaAws, color: '#FF9900' },
+  { name: 'TypeScript', Icon: SiTypescript, color: '#3178C6' },
+  { name: 'RAG', Icon: SiHuggingface, color: '#FFD21E' },
+  { name: 'LangChain', Icon: SiLangchain, color: '#ffffff' },
+  { name: 'OpenAI', Icon: TbBrandOpenai, color: '#74AA9C' },
+  { name: 'Vector DBs', Icon: SiQdrant, color: '#DC244C' },
+  { name: 'Git', Icon: SiGit, color: '#F05032' },
+  { name: 'MySQL', Icon: SiMysql, color: '#4479A4' },
+  { name: 'Web Scraping', Icon: SiSelenium, color: '#43B02A' },
 ]
 
 function SkillBar({ name, level, color, inView }) {
@@ -152,15 +177,19 @@ export default function Skills() {
         <div className={`tech-logos ${inView ? 'visible' : ''}`}>
           <p className="tech-logos-title">Technologies & Tools</p>
           <div className="tech-logos-grid">
-            {techLogos.map((tech, i) => (
-              <div
-                key={tech}
-                className="tech-logo-item glass-card"
-                style={{ transitionDelay: `${i * 50}ms` }}
-              >
-                {tech}
-              </div>
-            ))}
+            {techLogos.map((tech, i) => {
+              const Icon = tech.Icon
+              return (
+                <div
+                  key={tech.name}
+                  className="tech-logo-item glass-card"
+                  style={{ transitionDelay: `${i * 50}ms` }}
+                >
+                  <Icon className="tech-logo-icon" style={{ color: tech.color }} />
+                  <span>{tech.name}</span>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>

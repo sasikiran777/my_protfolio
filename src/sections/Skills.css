@@ -127,7 +127,10 @@
 }
 
 .tech-logo-item {
-  padding: 10px 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px 10px 14px;
   border-radius: 24px;
   font-size: 14px;
   font-weight: 500;
@@ -135,6 +138,11 @@
   transition: all 0.3s ease;
   opacity: 0;
   transform: translateY(10px);
+}
+
+.tech-logo-icon {
+  font-size: 18px;
+  flex-shrink: 0;
 }
 
 .tech-logos.visible .tech-logo-item {
