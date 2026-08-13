@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import './Contact.css'
 
+const CONTACT_EMAIL = 'sasikiran146@gmail.com'
+
 const socials = [
   {
     name: 'GitHub',
@@ -12,6 +14,7 @@ const socials = [
     ),
     href: 'https://github.com/sasikiran777',
     color: '#fff',
+    external: true,
   },
   {
     name: 'LinkedIn',
@@ -22,6 +25,7 @@ const socials = [
     ),
     href: 'https://www.linkedin.com/in/sasi-kiran-27a26693',
     color: '#0077b5',
+    external: true,
   },
   {
     name: 'Email',
@@ -31,22 +35,61 @@ const socials = [
         <polyline points="22,6 12,13 2,6"/>
       </svg>
     ),
-    href: 'mailto:sasikiran146@gmail.com',
+    href: `mailto:${CONTACT_EMAIL}?subject=Hello%20from%20your%20portfolio`,
     color: '#915eff',
+    external: false,
   },
 ]
 
 export default function Contact() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true })
   const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const [errorMsg, setErrorMsg] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setStatus('sent')
-    setTimeout(() => setStatus(''), 4000)
-    setForm({ name: '', email: '', message: '' })
+    setStatus('sending')
+    setErrorMsg('')
+
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          _subject: `Portfolio contact from ${form.name}`,
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok || data.success === 'false' || data.success === false) {
+        throw new Error(data.message || 'Failed to send message')
+      }
+
+      setStatus('sent')
+      setForm({ name: '', email: '', message: '' })
+      setTimeout(() => setStatus('idle'), 5000)
+    } catch (err) {
+      setStatus('error')
+      setErrorMsg(err.message || 'Something went wrong. Try emailing me directly.')
+      setTimeout(() => setStatus('idle'), 5000)
+    }
   }
+
+  const buttonLabel =
+    status === 'sending' ? 'Sending...' :
+    status === 'sent' ? 'Message Sent!' :
+    status === 'error' ? 'Try Again' :
+    'Send Message'
 
   return (
     <section id="contact" className="contact section-padding">
@@ -69,9 +112,18 @@ export default function Contact() {
                 I'm not great at corporate speak, so I'll keep it simple: if you want to build something together, or just want to talk dev stuff, reach out. I'll actually respond.
               </p>
 
+              <a href={`mailto:${CONTACT_EMAIL}`} className="contact-email-line">
+                {CONTACT_EMAIL}
+              </a>
+
               <div className="contact-socials">
                 {socials.map(s => (
-                  <a key={s.name} href={s.href} className="social-link glass-card" target="_blank" rel="noopener noreferrer">
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    className="social-link glass-card"
+                    {...(s.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  >
                     <span style={{ color: s.color }}>{s.icon}</span>
                     <span>{s.name}</span>
                   </a>
@@ -90,38 +142,61 @@ export default function Contact() {
           <form className="contact-form glass-card" onSubmit={handleSubmit}>
             <h3>Send a Message</h3>
             <div className="form-group">
-              <label>Name</label>
+              <label htmlFor="contact-name">Name</label>
               <input
+                id="contact-name"
                 type="text"
+                name="name"
                 placeholder="Your Name"
                 value={form.name}
-                onChange={e => setForm({...form, name: e.target.value})}
+                onChange={e => setForm({ ...form, name: e.target.value })}
                 required
+                disabled={status === 'sending'}
               />
             </div>
             <div className="form-group">
-              <label>Email</label>
+              <label htmlFor="contact-email">Email</label>
               <input
+                id="contact-email"
                 type="email"
+                name="email"
                 placeholder="your@email.com"
                 value={form.email}
-                onChange={e => setForm({...form, email: e.target.value})}
+                onChange={e => setForm({ ...form, email: e.target.value })}
                 required
+                disabled={status === 'sending'}
               />
             </div>
             <div className="form-group">
-              <label>Message</label>
+              <label htmlFor="contact-message">Message</label>
               <textarea
+                id="contact-message"
+                name="message"
                 rows={5}
                 placeholder="Tell me about your project..."
                 value={form.message}
-                onChange={e => setForm({...form, message: e.target.value})}
+                onChange={e => setForm({ ...form, message: e.target.value })}
                 required
+                disabled={status === 'sending'}
               />
             </div>
-            <button type="submit" className="btn-primary form-submit">
-              <span>{status === 'sent' ? '✓ Message Sent!' : 'Send Message'}</span>
-              {status !== 'sent' && (
+
+            {status === 'error' && (
+              <p className="form-feedback form-feedback-error">{errorMsg}</p>
+            )}
+            {status === 'sent' && (
+              <p className="form-feedback form-feedback-success">
+                Thanks — your message is on its way to {CONTACT_EMAIL}.
+              </p>
+            )}
+
+            <button
+              type="submit"
+              className="btn-primary form-submit"
+              disabled={status === 'sending' || status === 'sent'}
+            >
+              <span>{buttonLabel}</span>
+              {status === 'idle' && (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <line x1="22" y1="2" x2="11" y2="13"/>
                   <polygon points="22 2 15 22 11 13 2 9 22 2"/>

@@ -6,9 +6,10 @@ import {
   SiPython, SiBun, SiHono, SiFlutter, SiMongodb, SiPostgresql,
   SiDocker, SiTypescript, SiLangchain,
   SiQdrant, SiGit, SiMysql, SiSelenium, SiHuggingface,
+  SiN8N, SiOllama, SiClaude, SiGooglegemini, SiMoonshotai,
 } from 'react-icons/si'
 import { FaAws } from 'react-icons/fa6'
-import { TbBrandOpenai } from 'react-icons/tb'
+import { TbBrandOpenai, TbBrain } from 'react-icons/tb'
 import './Skills.css'
 
 const skillGroups = [
@@ -49,11 +50,11 @@ const skillGroups = [
     title: 'AI & Integrations',
     color: '#ff9f43',
     skills: [
-      { name: 'RAG Applications', level: 78 },
+      { name: 'Claude / Gemini / Kimi / GLM', level: 82 },
       { name: 'OpenAI API / AI Agents', level: 80 },
-      { name: 'LangChain', level: 70 },
-      { name: 'Prompt Engineering', level: 75 },
-      { name: 'Embeddings & Vector DBs', level: 68 },
+      { name: 'RAG Applications', level: 78 },
+      { name: 'n8n Automation', level: 76 },
+      { name: 'Ollama (Local LLMs)', level: 72 },
     ],
   },
 ]
@@ -77,6 +78,12 @@ const techLogos = [
   { name: 'RAG', Icon: SiHuggingface, color: '#FFD21E' },
   { name: 'LangChain', Icon: SiLangchain, color: '#ffffff' },
   { name: 'OpenAI', Icon: TbBrandOpenai, color: '#74AA9C' },
+  { name: 'Claude', Icon: SiClaude, color: '#D97757' },
+  { name: 'Gemini', Icon: SiGooglegemini, color: '#8E75B2' },
+  { name: 'Kimi', Icon: SiMoonshotai, color: '#63E2FF' },
+  { name: 'GLM', Icon: TbBrain, color: '#4A90E2' },
+  { name: 'n8n', Icon: SiN8N, color: '#EA4B71' },
+  { name: 'Ollama', Icon: SiOllama, color: '#ffffff' },
   { name: 'Vector DBs', Icon: SiQdrant, color: '#DC244C' },
   { name: 'Git', Icon: SiGit, color: '#F05032' },
   { name: 'MySQL', Icon: SiMysql, color: '#4479A4' },

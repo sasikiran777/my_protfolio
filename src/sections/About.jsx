@@ -10,7 +10,7 @@ const highlights = [
   { title: 'Founder & CEO', desc: 'Edutrakify ERP Solutions Pvt Ltd — built from scratch' },
   { title: 'Full Stack Dev', desc: 'React, Vue, Node.js, Python, Go — whatever fits the problem' },
   { title: 'Mobile Apps', desc: 'Android apps published on the Play Store' },
-  { title: 'AI & RAG', desc: 'RAG apps, AI agents, OpenAI & LangChain in production' },
+  { title: 'AI & RAG', desc: 'Claude, Gemini, Kimi, GLM, n8n, Ollama & RAG in production' },
 ]
 
 export default function About() {

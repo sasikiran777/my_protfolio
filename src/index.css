@@ -109,11 +109,11 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 14px 32px;
-  background: linear-gradient(135deg, var(--accent), var(--cyan));
-  border: none;
+  padding: 13px 32px;
+  background: transparent;
+  border: 1px solid var(--accent);
   border-radius: 12px;
-  color: white;
+  color: var(--accent);
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -123,22 +123,11 @@ section {
   overflow: hidden;
 }
 
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--cyan), var(--accent));
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.btn-primary:hover::before {
-  opacity: 1;
-}
-
 .btn-primary:hover {
+  background: var(--accent);
+  color: white;
   transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(145, 94, 255, 0.4);
+  box-shadow: 0 10px 40px rgba(145, 94, 255, 0.3);
 }
 
 .btn-primary span {
@@ -152,9 +141,9 @@ section {
   gap: 8px;
   padding: 13px 32px;
   background: transparent;
-  border: 1px solid var(--accent);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 12px;
-  color: var(--accent);
+  color: white;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -163,9 +152,10 @@ section {
 }
 
 .btn-outline:hover {
-  background: rgba(145, 94, 255, 0.1);
+  background: white;
+  border-color: white;
+  color: var(--bg);
   transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(145, 94, 255, 0.2);
 }
 
 @keyframes float {
