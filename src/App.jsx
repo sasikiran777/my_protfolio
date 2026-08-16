@@ -32,7 +32,7 @@ export default function App() {
       </main>
       <footer className="footer">
         <div className="container">
-          <p>© 2024 Sasi Kiran · Built with React & Three.js</p>
+          <p>© 2024 Sasi Kiran · Built with Love & Passion</p>
         </div>
       </footer>
     </div>

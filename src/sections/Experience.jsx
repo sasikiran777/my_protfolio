@@ -6,7 +6,7 @@ const experiences = [
   {
     role: 'Founder & CEO',
     company: 'Edutrakify ERP Solutions Pvt Ltd',
-    period: 'Present',
+    period: 'Nov 2024 — Present',
     location: 'Hyderabad, India',
     type: 'Startup',
     points: [
@@ -17,8 +17,8 @@ const experiences = [
   },
   {
     role: 'Project Manager',
-    company: 'Maha Software Solutions',
-    period: 'Nov 2018 — Present',
+    company: 'Mahasos info tech pvt ltd',
+    period: 'May 2018 — Aug 2026',
     location: 'Hyderabad, India',
     type: 'Full-time',
     points: [
@@ -30,7 +30,7 @@ const experiences = [
   {
     role: 'Full Stack Developer',
     company: 'Aurora E Labs',
-    period: 'May 2018 — Oct 2018',
+    period: 'Nov 2017 — May 2018',
     location: 'Hyderabad, India',
     type: 'Full-time',
     points: [
